@@ -18,6 +18,7 @@ Analizador gramatical para inglés vía servidor HTTP local.
   - Sección 4.2. [La visualización del análisis](#la-visualización-del-análisis)
   - Sección 4.3. [Obtener definiciones rápidas](#obtener-definiciones-rápidas)
 - Sección 5. [Teoría gramatical](#teoría-gramatical)
+- Sección 6. [Cómo continuarlo](#cómo-continuarlo)
 
 
 ## Requisitos
@@ -141,5 +142,73 @@ La teoría gramatical que subyace al parser de `core-nlp` parece que sigue una n
 | 34. | WP | Wh-pronoun | Pronombre wh |
 | 35. | WP$ | Possessive wh-pronoun | Pronombre posesivo wh |
 | 36. | WRB | Wh-adverb | Adverbio wh |
+
+
+## Cómo continuarlo
+
+Primero, habría que conseguir automáticamente, vía algún servicio o algo:
+  - el infinitivo de los verbos conjugados
+  - el sustantivo que tiene entrada en el diccionario de los sustantivos plurales o alterados con prefijos, sufijos o infijos.
+  - el adjetivo que tiene entrada en el diccionario de los adjetivos plurales o alterados con prefijos, sufijos o infijos.
+  - el adverbio (o adjetivo o sustantivo) que tiene entrada en el diccionario de los adverbios alterados con prefijos, sufijos o infijos.
+
+Para eso habría que obtener ese *mapeo, de palabra conjugada, a entrada en diccionario* de la familia semántica con la categoría gramatical más próxima.
+
+Segundo, si obtenemos eso, podemos obtener la definición concreta de todas las palabras de la oración, aunque no estén representadas morfológicamente igual que la entrada del diccionario que arrojaría luz sobre significado a esa palabra.
+
+Estos dos pasos nos darían la forma del mensaje (*gramática*) y el contenido del mensaje (*semántica*). A partir de ese combo, ya hay un enunciado con una carga simbólica lo suficientemente ordenada como para dar sentido conjunto a ambos: *forma* y *contenido*.
+
+OK. ¿Problema? No encuentro un servicio que haga ese **mapeo de palabra conjugada, a entrada en diccionario**.
+
+Entonces... supongo que me tengo que quedar aquí. Hasta que aparezca. Porque inventarlo no creo. Aunque igual hay alguna base de datos. No lo sé, no sabría ni cómo preguntarlo.
+
+Seguiría, pero sin eso, no avanzaría apenas. Así que de momento, aquí está esto.
+
+> a tenemos significados. No de todas las palabras, ok, ni tampoco una deducción de la acepción más acertada. Cierto. Pero bueno, tienes algo. ¿Puedes continuar la ecuación con más de una incógnita? E irlo haciendo aprender a deducir, o a buscar en otros lugares, a mapear él la palabra. Pero lento, no... no es requisito. Que pueda continuar con varias incógnitas, o que incluso aprenda a resolverlas.
+
+Uff... El problema de eso, te lo explico. Hasta ahora, es un desarrollo que sólo te dice: «dame una frase» y «luego te doy un análisis gramatical» y «también puedo buscar las definiciones de cada palabra». OK. Pero... no te dice que vaya a gestionar esa información de ninguna manera concreta. Lo que tú dices ya está intentando **entender el mensaje**, tanto en **forma** como en **contenido**.
+
+¿Entiendes la diferencia? El proyecto, ahora, está en la línea. No se pronuncia en una **estrategia de interpretación**. 
+
+> Eco. ¿Ves la interfaz ahí?
+
+Sssssup. Sí, ¿pero en forma de API o qué?
+
+> Un nuevo proyecto que dé por hecho este. Es una implementación práctica del análisis gramatical y semántico. Hasta ahora, es una implementación claramente teórica del análisis gramatical y semántico. En el siguiente proyecto, ya haces una **opinionación** en cuanto al uso de esos análisis gramático y semántico. ¿Comprendes?
+
+La **interpretación** es, pues, una **opinionación** del análisis formal y conceptual.
+
+> La **interpretación** es una **decisión** sobre el **análisis formal y conceptual** de la realidad, sí, Carl. Tiene mucho que ver con tu odio, tu mala hostia, y tu decepción con el mundo. Pero tienes que aprender a girarlo por ti mismo eso.
+
+Un parias contento.
+
+> Piénsalo como quieras. De hecho, aunque te ayudase a estallar, te ayudaría.
+
+Qué listo. Bueno, sigue.
+
+> El siguiente proyecto vas a hacer una interpretación de estos datos, ahora solo estás pillando y desbrozando el trabajo ofuscado de otros, pero te quedas en lo que ellos dan. No aportas más que una interfaz de mierda. ¿Comprendez?
+
+Zip. ¿Qué otras interpretaciones de datos podría haber, para que sea interesante partir este proyecto aquí?
+
+> La interpretación de los datos es el trenzado que va a hacer que la electrónica de esta cosa, en este caso un programa, se nude con la entrada, y comience un intercambio de ideas:
+>  - *con coherencia* con lo anterior, es decir, **persistencia de datos** (no hace falta irse a bases de datos todavía) 
+>  - *con un interés* perseguido, cosa que va a convertir al programa en algo que también **busca** algo, tiene **objetivos**, tiene **ética** propia.
+
+Ok.
+
+> Otros programas pueden querer hacer otras cosas, otras interpretaciones. De hecho, la primera dudo que resulte en nada. Por eso tienes que partir aquí el proyecto. Hasta aquí, está bien. Más allá, estará mal seguro. Así la parte buena no la tocas. Este proyecto lo puedes dejar aquí. Habría que seguir en otro.
+
+Ok. ¿Y qué quiero que interprete?
+
+> Al usuario.
+
+¿Para qué?
+
+> Bueno, tú tranqui. Esto es una locura, no hay protocolos, pero se supone que hay un hilo. Pues tú tienes que ir haciendo ingeniería inversa de ese hilo. Y al final, creas algo que parece que algo pilla. No, un Chat GPT no. Pero y qué, un programa tonto, pero que comprende lo que necesitas que comprenda.
+
+Pero para esto hice Castelog.
+
+> Sí, pero Castelog es demasiado ortopédico. Bueno, vete a fumar, y piensa.
+
 
 

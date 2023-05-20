@@ -153,11 +153,13 @@ throw error;
 }
 
 },
-methods:{ muestro_error( error ) {try {
+methods:{ mostrar_error( error ) {try {
 this.error = error;
+this.$forceUpdate( true );
 clearTimeout( this.error_timeout_id );
 this.error_timeout_id = setTimeout( () => {try {
 this.error = undefined;
+this.$forceUpdate( true );
 } catch(error) {
 console.log(error);
 throw error;
@@ -182,7 +184,7 @@ date:Castelog.metodos.un_formateo_de_fecha(new Date(  ), null, "un formateo de f
 this.esta_analizando = false;
 this.$forceUpdate( true );
 } catch(error) {
-this.muestro_error( error );
+this.mostrar_error( error );
 this.esta_analizando = false;}
 },
 minimize_report( reporte_index ) {try {
@@ -242,6 +244,7 @@ throw error;
 
 },
 async buscar_significado_de( palabra ) {try {
+this.ultimo_significado_buscado = undefined;
 const respuesta = (await Castelog.metodos.una_peticion_http("https://api.dictionaryapi.dev/api/v2/entries/en/" + palabra.toLowerCase(  ), "GET", null, null, null, null));
 this.ultimo_significado_buscado = this.extraer_significado_de_respuesta( respuesta );
 this.$forceUpdate( true );

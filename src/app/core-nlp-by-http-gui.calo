@@ -147,11 +147,13 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
       }.
     }.
     propiedad methods como {
-      método muestro_error con (error) donde {
+      método mostrar_error con (error) donde {
         asigno this.error como error.
+        hago this.$forceUpdate(true).
         hago clearTimeout(this.error_timeout_id).
         asigno this.error_timeout_id como setTimeout(una lambda donde {
           asigno this.error como undefined.
+          hago this.$forceUpdate(true).
         }, 1000 * 4).
       }.
       método asíncrono iniciar_analisis donde {
@@ -167,7 +169,7 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         } en this.reportes.
         asigno this.esta_analizando como false.  
         hago this.$forceUpdate(true).
-      } en errores hago this.muestro_error(error) después asigno this.esta_analizando como false.
+      } en errores hago this.mostrar_error(error) después asigno this.esta_analizando como false.
       método minimize_report con (reporte_index) donde {
         asigno this.reportes[reporte_index].estado_de_ventana como "minimizado".
         hago this.$forceUpdate(true).
@@ -204,6 +206,7 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         retorno salida.
       }.
       método asíncrono buscar_significado_de con (palabra) donde {
+        asigno this.ultimo_significado_buscado como undefined.
         creo respuesta como asíncronamente una petición http
           con url "https://api.dictionaryapi.dev/api/v2/entries/en/" + palabra.toLowerCase()
           con método "GET".

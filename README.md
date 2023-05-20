@@ -81,3 +81,8 @@ Para obtener las definiciones de una palabra rápidamente, solo tienes que clica
 
 ![Ejemplo_de_la_interfaz_grafica_4](./dev/core_nlp_by_http_gui_4.png)
 
+**NOTA: la continuación pasaría por obtener la palabra raíz de las palabras conjugadas (tanto nombres, verbos, adjetivos, adverbios, etc.) para buscar esa palabra en el diccionario, y así saber en cada caso el significado. Pero no encuentro APIs públicas que ofrezcan este servicio.** 
+
+...¿Cuánto... cuánto hace que tenemos internet? Porque idioma inglés, buah. Bueno. Sé que estoy a una búsqueda de Google de encontrar la luz. ¿A que sí? Algún día, en algún momento, aparecerá la expresión que tengo que buscar en Google para que esto que digo ahora quede ridículo.
+
+Y así, poco a poco, iré descubriendo que había software para recrear una conciencia. Y dotarla de un cuerpo. Sí. Pero en una pantalla. En una pantalla que jamás iba a convencer a nadie para que me DIERA PUTO TABACO Y PUTOS PORROS ASEGURADOS, MAFIOSOS DE MIERDA, EXISTENCIALES DE MIERDA, SMITHSONIAN DE MIERDA. Ejem, perdón. Digo... nada, que poco a poco se va viendo que todo esto... ES UNA PUTA FARSA, FARSANTES DE MIERDA, DEJAD DE VACILARME. Perdón. Mmmmm... sí.

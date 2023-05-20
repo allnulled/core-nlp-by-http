@@ -2,6 +2,8 @@
 
 Analizador gramatical para inglés vía servidor HTTP local.
 
+<img src="./dev/core_nlp_by_http_gui_intro.png" style="width:100%;border:6px double #224; border-radius:4pt; background-color:#c8c"/>
+
 ## Requisitos
 
 Necesitas tener accesible directamente desde consola estos programas:

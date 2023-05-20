@@ -1,0 +1,23 @@
+{
+  "name": "core-nlp-by-http",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "bin": {
+    "core_nlp_by_http": "./bin/core_nlp_by_http.js"
+  },
+  "scripts": {
+    "up": "node bin/core_nlp_by_http.js",
+    "test": "node test/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "core-nlp-wrapper": "^1.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "yargs": "^17.7.2"
+  }
+}

@@ -1,0 +1,8 @@
+hago require(__dirname + "/calo.js").
+
+hago un hecho asíncrono donde {
+    creo respuesta como asíncronamente una petición http
+      con url "http://127.0.0.1:9095?q=This is some text in English."
+      con método "GET".
+    imprimo respuesta.data.
+}.

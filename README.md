@@ -7,17 +7,17 @@ Analizador gramatical para inglés vía servidor HTTP local.
 ## Índice
 
 - 1. [Requisitos](#requisitos)
-- 2. [Instalación](#instalacion)
+- 2. [Instalación](#instalación)
 - 3. [Uso](#uso)
-  - 3.1. [Explicación](#explicacion)
-  - 3.2. [Ejecución](#ejecucion)
-    - a) [Vía explorador](#via-explorador)
-    - b) [Vía consola](#via-consola)
-- 4. [Aplicación](#aplicacion)
-  - 4.1. [La interfaz gráfica](#la-interfaz-grafica)
-  - 4.2. [La visualización del análisis](#la-visualizacion-del-analisis)
-  - 4.3. [Obtener definiciones rápidas](#obtener-definiciones-rapidas)
-- 5. [Teoría gramatical](#teoria-gramatical)
+  - 3.1. [Explicación](#explicación)
+  - 3.2. [Ejecución](#ejecución)
+    - a) [Vía explorador](#vía-explorador)
+    - b) [Vía consola](#vía-consola)
+- 4. [Aplicación](#aplicación)
+  - 4.1. [La interfaz gráfica](#la-interfaz-gráfica)
+  - 4.2. [La visualización del análisis](#la-visualización-del-análisis)
+  - 4.3. [Obtener definiciones rápidas](#obtener-definiciones-rápidas)
+- 5. [Teoría gramatical](#teoría-gramatical)
 
 
 ## Requisitos

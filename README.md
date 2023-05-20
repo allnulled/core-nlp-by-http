@@ -20,10 +20,11 @@ Mi sistema operativo es `Ubuntu 20.04.6 LTS` de `64 bits`, pero todos estos prog
 Este código te hará ejecutar todos los pasos directamente: descarga, instalación, linkado y ejecución. Solo asegúrate que estás en un directorio vacío.
 
 ```sh
-git clone ${url git repo} .
+git clone https://github.com/allnulled/core-nlp-by-http.git .
+npm run up
 ```
 
-Luego, si haces doble-click en `start.sh` o correr `sh start.sh` (Linux) o `start.bat` (Windows), se completará la instalación y se iniciará el servidor.
+El primer comando será rápido, pero el segundo, lento, porque se instalarán las dependencias de `npm` y se descargará el fichero que `core-nlp-wrapper` necesita parchear, y ambas son operaciones algo costosas.
 
 ## Uso
 
@@ -31,7 +32,7 @@ Luego, si haces doble-click en `start.sh` o correr `sh start.sh` (Linux) o `star
 
 El usuario solo deberia ver una página web que se le abre automáticamente cuando clica `start.sh` o `start.bat`. 
 
-Por debajo, `java` y `node.js`, que son 2 lenguajes de programación diferentes, se tienen que comunicar mediante el sistema operativo. Esto es porque `core-nlp` funciona con `java`. Nosotros levantamos un servidor con `node.js` que, mediante un subproceso del sistema operativo y ficheros temporales, va a interactuar con `core-nlp` para extraer los análisis gramaticales (en inglés) que le pidamos.
+Por debajo, `java` y `node.js`, que son 2 lenguajes de programación diferentes, se tienen que comunicar entre ellos mediante el sistema operativo. Esto es porque `core-nlp` funciona con `java`, y no hay tantos proyectos que hagan lo que `core-nlp`. Nosotros levantamos un servidor con `node.js` que, mediante un subproceso del sistema operativo y ficheros temporales, va a interactuar con `core-nlp` para extraer los análisis gramaticales (en inglés) que le pidamos.
 
 
 ### Ejecución

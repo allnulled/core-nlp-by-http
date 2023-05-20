@@ -5,8 +5,8 @@ asigno window.CoreNlpByHttpGuiSentence como  un componente vue2 con nombre "Core
         <div v-if="internal_sentence.elements">
           <div v-for="subelement, subelement_index in internal_sentence.elements" v-bind:key="'core-nlp-sentence-' + uuid + '-attribute-' + subelement_index">
             <div style="padding: 5px;" v-if="subelement.attributes.value !== '.' ">
-              <span style="margin-left: 5px; font-weight: bold; border: 3px solid blue;" v-if="subelement.name === 'node'">
-                <span style="background-color: rgba(0,0,255,0.4); color: black;">{{ gui.traducir_equivalencia_gramatica(subelement.attributes.value) }}: </span>
+              <span style="margin-left: 5px; font-weight: bold;" v-if="subelement.name === 'node'">
+                <span style="background-color: rgba(0,0,255,0.4); color: black; border: 3px solid blue;">{{ gui.traducir_equivalencia_gramatica(subelement.attributes.value) }}: </span>
                 <span>{{ gui.extraer_texto_plano_de_ast(subelement, true) }}</span>
               </span>
               <span style="margin-left: 5px; font-weight: bold; border: 3px solid green; background-color: rgba(0,255,0,0.4); color: black;" v-else>
@@ -186,7 +186,7 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
           "VBG": "Verbo en gerundio o present participle",
           "VBN": "Verbo o past participle",
           "VBP": "Verbo presente en no-3ª persona del singular",
-          "VBZ": "Verbo presemte en 3ª persona del singular",
+          "VBZ": "Verbo presente en 3ª persona del singular",
           "WDT": "Determinante wh",
           "WP": "Pronombre wh",
           "WP": "Pronombre posesivo wh",

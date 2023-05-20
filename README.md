@@ -4,7 +4,7 @@ Analizador gramatical para inglés vía servidor HTTP local.
 
 ## Requisitos
 
-Necesitas:
+Necesitas tener accesible directamente desde consola estos programas:
 
   - `java` versión `8 o superior` (por `core-nlp`, ver más allí)
   - `node`, yo estoy usando versión `18.15.0`

@@ -73,13 +73,13 @@ Este texto te permite interactuar con el `core-nlp` que es el que analizará el 
 
 Cuando realizas un análisis, aparece una nueva ventanita con la información del análisis gramatical. La sección de `Visualization` es la que se ve así:
 
-![Ejemplo_de_la_interfaz_grafica_5](./dev/core_nlp_by_http_gui_5.png)
+![Ejemplo_de_la_interfaz_grafica_10](./dev/core_nlp_by_http_gui_10.png)
 
 ### Obtener definiciones rápidas
 
 Para obtener las definiciones de una palabra rápidamente, solo tienes que clicar en el bóton de la palabra, bajo `Visualization`. Se mostrarán los significados encontrados en `https://api.dictionaryapi.dev/api/v2/entries/en/` de dicha palabra.
 
-![Ejemplo_de_la_interfaz_grafica_4](./dev/core_nlp_by_http_gui_4.png)
+![Ejemplo_de_la_interfaz_grafica_11](./dev/core_nlp_by_http_gui_11.png)
 
 **NOTA: la continuación pasaría por obtener la palabra raíz de las palabras conjugadas (tanto nombres, verbos, adjetivos, adverbios, etc.) para buscar esa palabra en el diccionario, y así saber en cada caso el significado. Pero no encuentro APIs públicas que ofrezcan este servicio.** 
 

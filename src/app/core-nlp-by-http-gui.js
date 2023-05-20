@@ -1,4 +1,57 @@
 
+window.CoreNlpByHttpGuiSentence = Castelog.metodos.un_componente_vue2("CoreNlpByHttpGuiSentence",
+  "<div class=\"CoreNlpByHttpGuiSentence Component\">"
+ + "    <div style=\"padding-left: 10px;\">"
+ + "      <div style=\"border-left: 0px solid blue;\">"
+ + "        <div v-if=\"internal_sentence.type && (internal_sentence.type !== 'element')\">"
+ + "          <span style=\"font-weight: bold;\">Type:</span> {{ internal_sentence.type }}"
+ + "        </div>"
+ + "        <div v-if=\"internal_sentence.elements\">"
+ + "          <div v-for=\"subelement, subelement_index in internal_sentence.elements\" v-bind:key=\"'core-nlp-sentence-' + uuid + '-attribute-' + subelement_index\">"
+ + "            <div style=\"padding: 5px;\">"
+ + "              <span style=\"margin-left: 5px; font-weight: bold; border: 3px solid blue;\">"
+ + "                <span style=\"background-color: rgba(0,0,255,0.4); color: black;\">{{ internal_sentence.attributes.value }}: </span>"
+ + "                <span>{{ gui.extraer_texto_plano_de_ast(internal_sentence, true) }}</span>"
+ + "              </span>"
+ + "            </div>"
+ + "            <CoreNlpByHttpGuiSentence :sentence=\"subelement\" :gui=\"gui\" />"
+ + "          </div>"
+ + "        </div>"
+ + "      </div>"
+ + "    </div>"
+ + "  </div>",
+  function(component) {return { props:{ uuid:{ type:String,
+default:function() {try {
+return Castelog.metodos.un_texto_aleatorio(20, undefined);
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+}
+},
+sentence:{ type:Object,
+required:true
+},
+gui:{ type:Object,
+required:true
+}
+},
+data() {try {
+return { internal_sentence:this.sentence,
+error:undefined,
+error_timeout_id:0
+};
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+methods:{ 
+}
+};},
+  null);
 window.CoreNlpByHttpGui = Castelog.metodos.un_componente_vue2("CoreNlpByHttpGui",
   "<div class=\"CoreNlpByHttpGui Component win7\">"
  + "    <div class=\"window\">"
@@ -56,13 +109,7 @@ window.CoreNlpByHttpGui = Castelog.metodos.un_componente_vue2("CoreNlpByHttpGui"
  + "                      <summary>Sentence nº {{ frase_index + 1 }}: </summary>"
  + "                      <div>"
  + "                        <div style=\"font-weight: bold; color: #228822;\">{{ extraer_texto_plano_de_ast(frase, true) }}</div>"
- + "                        <table>"
- + "                          <tbody>"
- + "                            <tr>"
- + "                              <td></td>"
- + "                            </tr>"
- + "                          </tbody>"
- + "                        </table>"
+ + "                        <CoreNlpByHttpGuiSentence :sentence=\"frase\" :gui=\"self\" />"
  + "                      </div>"
  + "                    </details>"
  + "                  </div>"
@@ -85,7 +132,8 @@ esta_analizando:false,
 error:undefined,
 error_timeout_id:0,
 texto_para_analizar:"This is a request. This is another request. And another.",
-reportes:[  ]
+reportes:[  ],
+self:this
 };
 } catch(error) {
 console.log(error);

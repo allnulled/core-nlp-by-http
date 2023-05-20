@@ -65,13 +65,10 @@ Una vez estás dentro de la aplicación, verás algo así:
 
 ![Ejemplo_de_la_interfaz_grafica_1](./dev/core_nlp_by_http_gui.png)
 
+
 Este texto te permite interactuar con el `core-nlp` que es el que analizará el texto.
 
-Cuando realizas un análisis, se te devuelve un `JSON` con la información de ese análisis.
+Cuando realizas un análisis, aparece una nueva ventanita con la información del análisis gramatical. La sección de `Visualization` es la que se ve así:
 
-Por el momento, hasta aquí.
-
-
-
-
+![Ejemplo_de_la_interfaz_grafica_2](./dev/core_nlp_by_http_gui_2.png)
 

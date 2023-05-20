@@ -108,7 +108,18 @@ window.CoreNlpByHttpGui = Castelog.metodos.un_componente_vue2("CoreNlpByHttpGui"
  + "                    <details v-for=\"frase, frase_index in report.visualization\" v-bind:key=\"'reporte-' + report_index + '-visualizacion-frase-' + frase_index\">"
  + "                      <summary>Sentence nº {{ frase_index + 1 }}: </summary>"
  + "                      <div>"
- + "                        <div style=\"font-weight: bold; color: #228822;\">{{ extraer_texto_plano_de_ast(frase, true) }}</div>"
+ + "                        <div style=\"font-weight: bold; color: #228822;\">"
+ + "                          <span v-for=\"palabra, palabra_index in extraer_texto_plano_de_ast(frase, true)\">"
+ + "                            <button style=\"margin-right: 5px;\" v-on:click=\"() => buscar_significado_de(palabra)\">{{ palabra }}</button>"
+ + "                          </span>"
+ + "                        </div>"
+ + "                        <div v-if=\"ultimo_significado_buscado\">"
+ + "                          <ul>"
+ + "                            <li v-for=\"(acepcion, acepcion_index) in ultimo_significado_buscado\" v-bind:key=\"'acepcion-de-significado-' + acepcion_index\">"
+ + "                              <span>{{ acepcion_index + 1 }}. {{ acepcion }}</span>"
+ + "                            </li>"
+ + "                          </ul>"
+ + "                        </div>"
  + "                        <CoreNlpByHttpGuiSentence :sentence=\"frase\" :gui=\"self\" />"
  + "                      </div>"
  + "                    </details>"
@@ -133,7 +144,8 @@ error:undefined,
 error_timeout_id:0,
 texto_para_analizar:"This is a request. This is another request. And another.",
 reportes:[  ],
-self:this
+self:this,
+ultimo_significado_buscado:false
 };
 } catch(error) {
 console.log(error);
@@ -214,19 +226,36 @@ return [  ];}
 },
 extraer_texto_plano_de_ast( ast,
 es_inicial = false ) {try {
-let salida = "";
+let salida = [  ];
 if(ast.name === "leaf") {
-salida += " + «" + ast.attributes.value + "»";
+salida.push(ast.attributes.value)
 }
 if(ast.elements) {
 for(let index = 0; index < ast.elements.length; index++) {const nodo = ast.elements[ index ];
-salida += this.extraer_texto_plano_de_ast( nodo );}
-}
-if(es_inicial) {
-return salida.replace( " + ",
-"" );
+salida = (salida).concat(this.extraer_texto_plano_de_ast( nodo ) );}
 }
 return salida;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+async buscar_significado_de( palabra ) {try {
+const respuesta = (await Castelog.metodos.una_peticion_http("https://api.dictionaryapi.dev/api/v2/entries/en/" + palabra.toLowerCase(  ), "GET", null, null, null, null));
+this.ultimo_significado_buscado = this.extraer_significado_de_respuesta( respuesta );
+this.$forceUpdate( true );
+} catch(error) {
+this.mostrar_error( error );}
+},
+extraer_significado_de_respuesta( respuesta ) {try {
+const definiciones = [  ];
+const significados = respuesta.data[ 0 ].meanings;
+for(let index_significados = 0; index_significados < significados.length; index_significados++) {const significado = significados[ index_significados ];
+const acepciones = significado.definitions;
+for(let index_acepciones = 0; index_acepciones < acepciones.length; index_acepciones++) {const acepcion = acepciones[ index_acepciones ];
+definiciones.push(acepcion.definition)}}
+return definiciones;
 } catch(error) {
 console.log(error);
 throw error;

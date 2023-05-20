@@ -103,7 +103,18 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
                     <details v-for="frase, frase_index in report.visualization" v-bind:key="'reporte-' + report_index + '-visualizacion-frase-' + frase_index">
                       <summary>Sentence nº {{ frase_index + 1 }}: </summary>
                       <div>
-                        <div style="font-weight: bold; color: #228822;">{{ extraer_texto_plano_de_ast(frase, true) }}</div>
+                        <div style="font-weight: bold; color: #228822;">
+                          <span v-for="palabra, palabra_index in extraer_texto_plano_de_ast(frase, true)">
+                            <button style="margin-right: 5px;" v-on:click="() => buscar_significado_de(palabra)">{{ palabra }}</button>
+                          </span>
+                        </div>
+                        <div v-if="ultimo_significado_buscado">
+                          <ul>
+                            <li v-for="(acepcion, acepcion_index) in ultimo_significado_buscado" v-bind:key="'acepcion-de-significado-' + acepcion_index">
+                              <span>{{ acepcion_index + 1 }}. {{ acepcion }}</span>
+                            </li>
+                          </ul>
+                        </div>
                         <CoreNlpByHttpGuiSentence :sentence="frase" :gui="self" />
                       </div>
                     </details>
@@ -131,7 +142,8 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         error_timeout_id: 0,
         texto_para_analizar: "This is a request. This is another request. And another.",
         reportes: [],
-        self: this
+        self: this,
+        ultimo_significado_buscado: false
       }.
     }.
     propiedad methods como {
@@ -179,20 +191,37 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         retorno reportes.
       } en errores imprimo error después retorno [].
       método extraer_texto_plano_de_ast con (ast, es_inicial o en su defecto false) donde {
-        creo variable salida como "".
+        creo variable salida como [].
         si ast.name es igual que "leaf" {
-          incremento salida en " + «" + ast.attributes.value + "»".
+          apendizo ast.attributes.value en salida.
         }.
         si ast.elements {
           desde 0 hasta ast.elements.length {
             creo nodo como ast.elements[index].
-            incremento salida en this.extraer_texto_plano_de_ast(nodo).
+            asigno salida como salida concatenado por this.extraer_texto_plano_de_ast(nodo).
           }.
         }.
-        si es_inicial {
-          retorno salida.replace(" + ", "").
-        }.
         retorno salida.
+      }.
+      método asíncrono buscar_significado_de con (palabra) donde {
+        creo respuesta como asíncronamente una petición http
+          con url "https://api.dictionaryapi.dev/api/v2/entries/en/" + palabra.toLowerCase()
+          con método "GET".
+        asigno this.ultimo_significado_buscado como this.extraer_significado_de_respuesta(respuesta).
+        hago this.$forceUpdate(true).
+      } en errores hago this.mostrar_error(error).
+      método extraer_significado_de_respuesta con (respuesta) donde {
+        creo definiciones como [].
+        creo significados como respuesta.data[0].meanings.
+        desde 0 hasta significados.length usando index_significados {
+          creo significado como significados[index_significados].
+          creo acepciones como significado.definitions.
+          desde 0 hasta acepciones.length usando index_acepciones {
+            creo acepcion como acepciones[index_acepciones].
+            apendizo acepcion.definition en definiciones.
+          }.
+        }.
+        retorno definiciones.
       }.
     }.
   }.

@@ -30,7 +30,7 @@ El primer comando será rápido, pero el segundo, lento, porque se instalarán l
 
 ### Explicación
 
-El usuario solo deberia ver una página web que se le abre automáticamente cuando clica `start.sh` o `start.bat`. 
+El usuario solo debería ver una página web que se le abre automáticamente cuando clica `start.sh` o `start.bat`. 
 
 Por debajo, `java` y `node.js`, que son 2 lenguajes de programación diferentes, se tienen que comunicar entre ellos mediante el sistema operativo. Esto es porque `core-nlp` funciona con `java`, y no hay tantos proyectos que hagan lo que `core-nlp`. Nosotros levantamos un servidor con `node.js` que, mediante un subproceso del sistema operativo y ficheros temporales, va a interactuar con `core-nlp` para extraer los análisis gramaticales (en inglés) que le pidamos.
 
@@ -61,14 +61,23 @@ Permite los parámetros siguientes:
 
 ## Aplicación
 
+### La interfaz gráfica
+
 Una vez estás dentro de la aplicación, verás algo así:
 
 ![Ejemplo_de_la_interfaz_grafica_1](./dev/core_nlp_by_http_gui.png)
 
-
 Este texto te permite interactuar con el `core-nlp` que es el que analizará el texto.
+
+### La visualización del análisis
 
 Cuando realizas un análisis, aparece una nueva ventanita con la información del análisis gramatical. La sección de `Visualization` es la que se ve así:
 
-![Ejemplo_de_la_interfaz_grafica_2](./dev/core_nlp_by_http_gui_2.png)
+![Ejemplo_de_la_interfaz_grafica_5](./dev/core_nlp_by_http_gui_5.png)
+
+### Obtener definiciones rápidas
+
+Para obtener las definiciones de una palabra rápidamente, solo tienes que clicar en el bóton de la palabra, bajo `Visualization`. Se mostrarán los significados encontrados en `https://api.dictionaryapi.dev/api/v2/entries/en/` de dicha palabra.
+
+![Ejemplo_de_la_interfaz_grafica_4](./dev/core_nlp_by_http_gui_4.png)
 

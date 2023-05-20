@@ -4,6 +4,22 @@ Analizador gramatical para inglés vía servidor HTTP local.
 
 <img src="./dev/core_nlp_by_http_gui_intro.png" style="width:100%;border:6px double #224; border-radius:4pt; background-color:#c8c"/>
 
+## Índice
+
+- 1. [Requisitos](#requisitos)
+- 2. [Instalación](#instalacion)
+- 3. [Uso](#uso)
+  - 3.1. [Explicación](#explicacion)
+  - 3.2. [Ejecución](#ejecucion)
+    - a) [Vía explorador](#via-explorador)
+    - b) [Vía consola](#via-consola)
+- 4. [Aplicación](#aplicacion)
+  - 4.1. [La interfaz gráfica](#la-interfaz-grafica)
+  - 4.2. [La visualización del análisis](#la-visualizacion-del-analisis)
+  - 4.3. [Obtener definiciones rápidas](#obtener-definiciones-rapidas)
+- 5. [Teoría gramatical](#teoria-gramatical)
+
+
 ## Requisitos
 
 Necesitas tener accesible directamente desde consola estos programas:

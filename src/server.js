@@ -13,7 +13,7 @@ const digest_query_in_natural_language = function(query) {
     })
 };
 
-module.exports = function(args_parameters = {}) {
+const core_nlp_server = function(args_parameters = {}) {
     const args = Object.assign({}, {
         app_id: "Core NLP by HTTP",
         port: false,
@@ -80,3 +80,7 @@ module.exports = function(args_parameters = {}) {
         }
     });
 };
+
+core_nlp_server.default = core_nlp_server;
+
+module.exports = core_nlp_server;

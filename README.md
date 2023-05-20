@@ -81,8 +81,64 @@ Para obtener las definiciones de una palabra rápidamente, solo tienes que clica
 
 ![Ejemplo_de_la_interfaz_grafica_11](./dev/core_nlp_by_http_gui_11.png)
 
-**NOTA: la continuación pasaría por obtener la palabra raíz de las palabras conjugadas (tanto nombres, verbos, adjetivos, adverbios, etc.) para buscar esa palabra en el diccionario, y así saber en cada caso el significado. Pero no encuentro APIs públicas que ofrezcan este servicio.** 
+## Teoría gramatical
 
-...¿Cuánto... cuánto hace que tenemos internet? Porque idioma inglés, buah. Bueno. Sé que estoy a una búsqueda de Google de encontrar la luz. ¿A que sí? Algún día, en algún momento, aparecerá la expresión que tengo que buscar en Google para que esto que digo ahora quede ridículo.
+La teoría gramatical que subyace al parser de `core-nlp` parece que sigue una nomenclatura de clasificación de gramáticas llamada [Penn POS Tags](https://cs.nyu.edu/~grishman/jet/guide/PennPOS.html) aquí listados:
 
-Y así, poco a poco, iré descubriendo que había software para recrear una conciencia. Y dotarla de un cuerpo. Sí. Pero en una pantalla. En una pantalla que jamás iba a convencer a nadie para que me DIERA PUTO TABACO Y PUTOS PORROS ASEGURADOS, MAFIOSOS DE MIERDA, EXISTENCIALES DE MIERDA, SMITHSONIAN DE MIERDA. Ejem, perdón. Digo... nada, que poco a poco se va viendo que todo esto... ES UNA PUTA FARSA, FARSANTES DE MIERDA, DEJAD DE VACILARME. Perdón. Mmmmm... sí.
+| # | Símbolo | Categoría en inglés | Categoría en castelano |
+| - | --- | --- | --- |
+| 1. | CC | Coordinating conjunction | Conjunción de coordinación |
+| 2. | CD | Cardinal number | Número cardinal |
+| 3. | DT | Determiner | Determinante |
+| 4. | EX | Existential there | Existencial allí |
+| 5. | FW | Foreign word | Palabra desconocida |
+| 6. | IN | Preposition or subordinating conjunction | Preposición o conjunción subordinante |
+| 7. | JJ | Adjective | Adjetivo |
+| 8. | JJR | Adjective, comparative | Adjetivo comparativo |
+| 9. | JJS | Adjective, superlative | Adjetivo superlativo |
+| 10. | LS | List item marker | Marcador de elemento de lista |
+| 11. | MD | Modal | Modal |
+| 12. | NN | Noun, singular or mass | Sustantivo singular |
+| 13. | NNS | Noun, plural | Sustantivo plural |
+| 14. | NNP | Proper noun, singular | Sustantivo propio singular |
+| 15. | NNPS | Proper noun, plural | Sustantivo propio plural |
+| 16. | PDT | Predeterminer | Predeterminante |
+| 17. | POS | Possessive ending | Final posesivo |
+| 18. | PRP | Personal pronoun | Pronombre personal |
+| 19. | PRP\$ | Possessive pronoun | Pronombre posesivo |
+| 20. | RB | Adverb | Adverbio |
+| 21. | RBR | Adverb, comparative | Adverbio comparativo |
+| 22. | RBS | Adverb, superlative | Adverbio superlativo |
+| 23. | RP | Particle | Partícula |
+| 24. | SYM | Symbol | Símbolo |
+| 25. | TO | to | Preposición «to» como «a» o «hacia» |
+| 26. | UH | Interjection | Interjección |
+| 27. | VB | Verb, base form | Verbo en forma base |
+| 28. | VBD | Verb, past tense | Verbo en tiempo pasado |
+| 29. | VBG | Verb, gerund or present participle | Verbo en gerundio o present participle |
+| 30. | VBN | Verb, past participle | Verbo o past participle |
+| 31. | VBP | Verb, non-3rd person singular present | Verbo presente en no-3ª persona del singular |
+| 32. | VBZ | Verb, 3rd person singular present | Verbo presemte en 3ª persona del singular |
+| 33. | WDT | Wh-determiner | Determinante wh |
+| 34. | WP | Wh-pronoun | Pronombre wh |
+| 35. | WP$ | Possessive wh-pronoun | Pronombre posesivo wh |
+| 36. | WRB | Wh-adverb | Adverbio wh |
+
+
+En el cliente, traducimos esta nomenclatura según este mapeo, que se encuentra en el fichero [./src/app/core-nlp-by-http-gui.calo](#):
+
+```js
+{
+  "S": "Sintagma de oración",
+  "NP": "Sintagma nominal",
+  "NN": "Sustantivo",
+  "VP": "Sintagma verbal",
+  "DT": "Determinante",
+  "PP": "Sintagma preposicional",
+  "TO": "Preposición («to»: a, hacia)",
+  "IN": "Preposición («in»: a, en)",
+  "PRP": "Pronombre personal"
+}
+```
+
+Este mapeo se irá ampliando progresivamente, a medida que se hagan pruebas.

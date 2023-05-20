@@ -7,7 +7,7 @@ window.CoreNlpByHttpGuiSentence = Castelog.metodos.un_componente_vue2("CoreNlpBy
  + "          <div v-for=\"subelement, subelement_index in internal_sentence.elements\" v-bind:key=\"'core-nlp-sentence-' + uuid + '-attribute-' + subelement_index\">"
  + "            <div style=\"padding: 5px;\" v-if=\"subelement.attributes.value !== '.' \">"
  + "              <span style=\"margin-left: 5px; font-weight: bold; border: 3px solid blue;\" v-if=\"subelement.name === 'node'\">"
- + "                <span style=\"background-color: rgba(0,0,255,0.4); color: black;\">{{ subelement.attributes.value }}: </span>"
+ + "                <span style=\"background-color: rgba(0,0,255,0.4); color: black;\">{{ gui.traducir_equivalencia_gramatica(subelement.attributes.value) }}: </span>"
  + "                <span>{{ gui.extraer_texto_plano_de_ast(subelement, true) }}</span>"
  + "              </span>"
  + "              <span style=\"margin-left: 5px; font-weight: bold; border: 3px solid green; background-color: rgba(0,255,0,0.4); color: black;\" v-else>"
@@ -146,6 +146,52 @@ error_timeout_id:0,
 texto_para_analizar:"This is a request. This is another request. And another.",
 reportes:[  ],
 self:this,
+equivalencias_gramaticales:Object.assign({ "S":"Sintagma de oración",
+"NP":"Sintagma nominal",
+"NN":"Sustantivo",
+"VP":"Sintagma verbal",
+"DT":"Determinante",
+"PP":"Sintagma preposicional",
+"TO":"Preposición («to»: a, hacia)",
+"IN":"Preposición («in»: a, en)",
+"PRP":"Pronombre personal"
+}, { "CC":"Conjunción de coordinación",
+"CD":"Número cardinal",
+"DT":"Determinante",
+"EX":"Existencial allí",
+"FW":"Palabra desconocida",
+"IN":"Preposición o conjunción subordinante",
+"JJ":"Adjetivo",
+"JJR":"Adjetivo comparativo",
+"JJS":"Adjetivo superlativo",
+"LS":"Marcador de elemento de lista",
+"MD":"Modal",
+"NN":"Sustantivo singular",
+"NNS":"Sustantivo plural",
+"NNP":"Sustantivo propio singular",
+"NNPS":"Sustantivo propio plural",
+"PDT":"Predeterminante",
+"POS":"Final posesivo",
+"PRP":"Pronombre personal",
+"PRP":"Pronombre posesivo",
+"RB":"Adverbio",
+"RBR":"Adverbio comparativo",
+"RBS":"Adverbio superlativo",
+"RP":"Partícula",
+"SYM":"Símbolo",
+"TO":"Preposición «to» como «a» o «hacia»",
+"UH":"Interjección",
+"VB":"Verbo en forma base",
+"VBD":"Verbo en tiempo pasado",
+"VBG":"Verbo en gerundio o present participle",
+"VBN":"Verbo o past participle",
+"VBP":"Verbo presente en no-3ª persona del singular",
+"VBZ":"Verbo presemte en 3ª persona del singular",
+"WDT":"Determinante wh",
+"WP":"Pronombre wh",
+"WP":"Pronombre posesivo wh",
+"WRB":"Adverbio wh"
+} ),
 ultimo_significado_buscado:false
 };
 } catch(error) {
@@ -260,6 +306,17 @@ const acepciones = significado.definitions;
 for(let index_acepciones = 0; index_acepciones < acepciones.length; index_acepciones++) {const acepcion = acepciones[ index_acepciones ];
 definiciones.push(acepcion.definition)}}
 return definiciones;
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+traducir_equivalencia_gramatica( simbolo_gramatical ) {try {
+if(simbolo_gramatical in this.equivalencias_gramaticales) {
+return this.equivalencias_gramaticales[ simbolo_gramatical ];
+}
+return simbolo_gramatical;
 } catch(error) {
 console.log(error);
 throw error;

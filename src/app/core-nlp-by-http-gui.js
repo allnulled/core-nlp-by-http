@@ -39,14 +39,33 @@ window.CoreNlpByHttpGui = Castelog.metodos.un_componente_vue2("CoreNlpByHttpGui"
  + "          </div>"
  + "          <template v-if=\"report.estado_de_ventana !== 'minimizado'\">"
  + "            <div class=\"window-body has-space\">"
- + "              <div style=\"padding-left:10px;\">"
+ + "              <div style=\"padding:10px;\">"
  + "                <details>"
  + "                  <summary>Text:</summary>"
- + "                  <p>{{ report.text }}</p>"
+ + "                  <div>{{ report.text }}</div>"
  + "                </details>"
  + "                <details>"
- + "                  <summary>Analysis:</summary>"
- + "                  <p>{{ report.analysis }}</p>"
+ + "                  <summary>Response:</summary>"
+ + "                  <div>{{ report.analysis }}</div>"
+ + "                </details>"
+ + "                <details v-if=\"report.visualization\">"
+ + "                  <summary>Visualization:</summary>"
+ + "                  <div>"
+ + "                    <div>A total of {{ report.visualization.length }} sentences were analyzed.</div>"
+ + "                    <details v-for=\"frase, frase_index in report.visualization\" v-bind:key=\"'reporte-' + report_index + '-visualizacion-frase-' + frase_index\">"
+ + "                      <summary>Sentence nº {{ frase_index + 1 }}: </summary>"
+ + "                      <div>"
+ + "                        <div style=\"font-weight: bold; color: #228822;\">{{ extraer_texto_plano_de_ast(frase, true) }}</div>"
+ + "                        <table>"
+ + "                          <tbody>"
+ + "                            <tr>"
+ + "                              <td></td>"
+ + "                            </tr>"
+ + "                          </tbody>"
+ + "                        </table>"
+ + "                      </div>"
+ + "                    </details>"
+ + "                  </div>"
  + "                </details>"
  + "              </div>"
  + "            </div>"
@@ -65,7 +84,7 @@ return { tiene_analizado_porcentaje:100,
 esta_analizando:false,
 error:undefined,
 error_timeout_id:0,
-texto_para_analizar:"This is a request.",
+texto_para_analizar:"This is a request. This is another request. And another.",
 reportes:[  ]
 };
 } catch(error) {
@@ -97,6 +116,7 @@ this.esta_analizando = true;
 const respuesta = (await Castelog.metodos.una_peticion_http("http://127.0.0.1:9095/query?q=" + this.texto_para_analizar, "GET", null, null, null, null));
 this.reportes.push({ text:this.texto_para_analizar,
 analysis:respuesta.data,
+visualization:this.procesar_analisis( respuesta.data ),
 date:Castelog.metodos.un_formateo_de_fecha(new Date(  ), null, "un formateo de fecha a texto")
 })
 this.esta_analizando = false;
@@ -127,6 +147,38 @@ close_report( reporte_index ) {try {
 this.reportes.splice( reporte_index,
 1 );
 this.$forceUpdate( true );
+} catch(error) {
+console.log(error);
+throw error;
+}
+
+},
+procesar_analisis( reports ) {try {
+const reportes = ([  ]).concat(reports.result.syntax_tree.elements[ 0 ].elements );
+for(let index = 0; index < reportes.length; index++) {const reporte = reportes[ index ];
+Object.assign(reporte, { visualization:{ message:"OK"
+}
+} );}
+return reportes;
+} catch(error) {
+console.log(error);
+return [  ];}
+},
+extraer_texto_plano_de_ast( ast,
+es_inicial = false ) {try {
+let salida = "";
+if(ast.name === "leaf") {
+salida += " + «" + ast.attributes.value + "»";
+}
+if(ast.elements) {
+for(let index = 0; index < ast.elements.length; index++) {const nodo = ast.elements[ index ];
+salida += this.extraer_texto_plano_de_ast( nodo );}
+}
+if(es_inicial) {
+return salida.replace( " + ",
+"" );
+}
+return salida;
 } catch(error) {
 console.log(error);
 throw error;

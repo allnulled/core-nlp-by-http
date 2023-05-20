@@ -38,14 +38,33 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
           </div>
           <template v-if="report.estado_de_ventana !== 'minimizado'">
             <div class="window-body has-space">
-              <div style="padding-left:10px;">
+              <div style="padding:10px;">
                 <details>
                   <summary>Text:</summary>
-                  <p>{{ report.text }}</p>
+                  <div>{{ report.text }}</div>
                 </details>
                 <details>
-                  <summary>Analysis:</summary>
-                  <p>{{ report.analysis }}</p>
+                  <summary>Response:</summary>
+                  <div>{{ report.analysis }}</div>
+                </details>
+                <details v-if="report.visualization">
+                  <summary>Visualization:</summary>
+                  <div>
+                    <div>A total of {{ report.visualization.length }} sentences were analyzed.</div>
+                    <details v-for="frase, frase_index in report.visualization" v-bind:key="'reporte-' + report_index + '-visualizacion-frase-' + frase_index">
+                      <summary>Sentence nº {{ frase_index + 1 }}: </summary>
+                      <div>
+                        <div style="font-weight: bold; color: #228822;">{{ extraer_texto_plano_de_ast(frase, true) }}</div>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </details>
+                  </div>
                 </details>
               </div>
             </div>
@@ -67,7 +86,7 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         esta_analizando: false,
         error: undefined,
         error_timeout_id: 0,
-        texto_para_analizar: "This is a request.",
+        texto_para_analizar: "This is a request. This is another request. And another.",
         reportes: []
       }.
     }.
@@ -87,6 +106,7 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
         apendizo {
           text: this.texto_para_analizar,
           analysis: respuesta.data,
+          visualization: this.procesar_analisis(respuesta.data),
           date: un formateo de fecha a texto a partir de un nuevo Date()
         } en this.reportes.
         asigno this.esta_analizando como false.  
@@ -103,6 +123,32 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
       método close_report con (reporte_index) donde {
         hago this.reportes.splice(reporte_index, 1).
         hago this.$forceUpdate(true).
+      }.
+      método procesar_analisis con (reports) donde {
+        creo reportes como [] concatenado por reports.result.syntax_tree.elements[0].elements.
+        desde 0 hasta reportes.length {
+          creo reporte como reportes[index].
+          hago reporte extendido por {
+            visualization: {message: "OK"}
+          }.
+        }.
+        retorno reportes.
+      } en errores imprimo error después retorno [].
+      método extraer_texto_plano_de_ast con (ast, es_inicial o en su defecto false) donde {
+        creo variable salida como "".
+        si ast.name es igual que "leaf" {
+          incremento salida en " + «" + ast.attributes.value + "»".
+        }.
+        si ast.elements {
+          desde 0 hasta ast.elements.length {
+            creo nodo como ast.elements[index].
+            incremento salida en this.extraer_texto_plano_de_ast(nodo).
+          }.
+        }.
+        si es_inicial {
+          retorno salida.replace(" + ", "").
+        }.
+        retorno salida.
       }.
     }.
   }.

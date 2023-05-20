@@ -105,9 +105,9 @@ asigno window.CoreNlpByHttpGui como un componente vue2 con nombre "CoreNlpByHttp
                       <summary>Sentence nº {{ frase_index + 1 }}: </summary>
                       <div>
                         <div style="font-weight: bold; color: #228822;">
-                          <span v-for="palabra, palabra_index in extraer_texto_plano_de_ast(frase, true)">
-                            <button style="margin-right: 5px;" v-on:click="() => buscar_significado_de(palabra)">{{ palabra }}</button>
-                          </span>
+                          <template v-for="palabra, palabra_index in extraer_texto_plano_de_ast(frase, true)">
+                            <button v-if="palabra !== '.'" style="margin-right: 5px;" v-on:click="() => buscar_significado_de(palabra)" v-bind:key="'reporte-' + report_index + '-visualizacion-frase-' + frase_index + '-palabra-' + palabra_index">{{ palabra }}</button>
+                          </template>
                         </div>
                         <div v-if="ultimo_significado_buscado">
                           <ul>

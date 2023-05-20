@@ -2,15 +2,16 @@ asigno window.CoreNlpByHttpGuiSentence como  un componente vue2 con nombre "Core
   <div class="CoreNlpByHttpGuiSentence Component">
     <div style="padding-left: 10px;">
       <div style="border-left: 0px solid blue;">
-        <div v-if="internal_sentence.type && (internal_sentence.type !== 'element')">
-          <span style="font-weight: bold;">Type:</span> {{ internal_sentence.type }}
-        </div>
         <div v-if="internal_sentence.elements">
           <div v-for="subelement, subelement_index in internal_sentence.elements" v-bind:key="'core-nlp-sentence-' + uuid + '-attribute-' + subelement_index">
-            <div style="padding: 5px;">
-              <span style="margin-left: 5px; font-weight: bold; border: 3px solid blue;">
-                <span style="background-color: rgba(0,0,255,0.4); color: black;">{{ internal_sentence.attributes.value }}: </span>
-                <span>{{ gui.extraer_texto_plano_de_ast(internal_sentence, true) }}</span>
+            <div style="padding: 5px;" v-if="subelement.attributes.value !== '.' ">
+              <span style="margin-left: 5px; font-weight: bold; border: 3px solid blue;" v-if="subelement.name === 'node'">
+                <span style="background-color: rgba(0,0,255,0.4); color: black;">{{ subelement.attributes.value }}: </span>
+                <span>{{ gui.extraer_texto_plano_de_ast(subelement, true) }}</span>
+              </span>
+              <span style="margin-left: 5px; font-weight: bold; border: 3px solid green; background-color: rgba(0,255,0,0.4); color: black;" v-else>
+                <span style="">Text: </span>
+                <span>{{ subelement.attributes.value }}</span>
               </span>
             </div>
             <CoreNlpByHttpGuiSentence :sentence="subelement" :gui="gui" />

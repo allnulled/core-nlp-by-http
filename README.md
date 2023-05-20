@@ -125,20 +125,3 @@ La teoría gramatical que subyace al parser de `core-nlp` parece que sigue una n
 | 36. | WRB | Wh-adverb | Adverbio wh |
 
 
-En el cliente, traducimos esta nomenclatura según este mapeo, que se encuentra en el fichero [./src/app/core-nlp-by-http-gui.calo](#):
-
-```js
-{
-  "S": "Sintagma de oración",
-  "NP": "Sintagma nominal",
-  "NN": "Sustantivo",
-  "VP": "Sintagma verbal",
-  "DT": "Determinante",
-  "PP": "Sintagma preposicional",
-  "TO": "Preposición («to»: a, hacia)",
-  "IN": "Preposición («in»: a, en)",
-  "PRP": "Pronombre personal"
-}
-```
-
-Este mapeo se irá ampliando progresivamente, a medida que se hagan pruebas.

@@ -17,6 +17,8 @@
     "body-parser": "^1.20.2",
     "core-nlp-wrapper": "^1.1.0",
     "cors": "^2.8.5",
+    "decompress": "^4.2.1",
+    "download": "^8.0.0",
     "express": "^4.18.2",
     "yargs": "^17.7.2"
   }

@@ -28,9 +28,7 @@ Necesitas tener accesible directamente desde consola estos programas:
   - `java` versión `8 o superior` (por `core-nlp`, ver más allí)
   - `node`, yo estoy usando versión `18.15.0`
   - `npm`, yo estoy usando versión `9.5.0`
-  - `git`, yo estoy usando versión `2.25.1`
-  - `curl`, yo estoy usando versión `7.68.0` (para parchear `core-nlp-wrapper` automáticamente)
-  - `7x`, yo estoy usando versión `16.02` (para parchear `core-nlp-wrapper` automáticamente)
+  - `git`, yo estoy usando versión `2.25.1`. Este solo se utiliza para descargar el proyecto `core-nlp-by-http`, así que si lo descargas manualmente no lo necesitas.
 
 Mi sistema operativo es `Ubuntu 20.04.6 LTS` de `64 bits`, pero todos estos programas deberían funcionar igual para Windows u otros.
 

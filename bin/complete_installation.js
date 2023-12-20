@@ -9,14 +9,13 @@ const main = async function() {
     try {
         let was_needed_some_step = false;
         const cmd0 = `npm i`;
-        const cmd1 = `curl  -LO  -o ${JSON.stringify(file_dst_path)}  ${JSON.stringify(file_src_url)}`;
-        const cmd2 = `7z  x  ${file_dst_path}  -o${JSON.stringify(file_dst_folder)}  -y`;
         Step_0_dependencies: {
             if (fs.existsSync(node_modules_folder)) {
                 break Step_0_dependencies;
             }
             was_needed_some_step = true;
-            console.log("[*] Executing:\n  " + cmd0.replace(/  +/g, "\n  "));
+            console.log("[*] ----------------------------------- [*]");
+            console.log("[*] Executing installation dependencies with: " + cmd0.replace(/  +/g, "\n  "));
             console.log("[*] ----------------------------------- [*]\n\n\n\n\n");
             child_process.execSync(cmd0, {
                 cwd: __dirname + "/..",
@@ -25,31 +24,25 @@ const main = async function() {
             console.log("\n\n\n\n\n[*] -----------------------------------");
             console.log("[✔] Dependencies were downloaded downloaded successfully.");
         }
+        const download = require("download");
+        const decompress = require("decompress");
         Step_1_download: {
             if (fs.existsSync(file_dst_path)) {
                 break Step_1_download;
             }
-            was_needed_some_step = true;
-            console.log("[*] Executing:\n  " + cmd1.replace(/  +/g, "\n  "));
+            console.log("[*] ----------------------------------- [*]");
+            console.log("[*] Executing download.");
+            console.log("[*] This operation takes some time, please, be patient...");
             console.log("[*] ----------------------------------- [*]\n\n\n\n\n");
-            child_process.execSync(cmd1, {
-                cwd: __dirname + "/complete_installation",
-                stdio: [process.stdin, process.stdout, process.stderr]
-            });
+            await download(file_src_url, path.dirname(file_dst_path));
             console.log("\n\n\n\n\n[*] -----------------------------------");
             console.log("[✔] The remote file was downloaded successfully.");
         }
         Step_2_decompression: {
-            if (fs.readdirSync(file_dst_folder).length) {
-                break Step_2_decompression;
-            }
-            was_needed_some_step = true;
-            console.log("[*] Executing:\n  " + cmd2.replace(/  +/g, "\n  "));
+            console.log("[*] ----------------------------------- [*]");
+            console.log("[*] Executing decompression.");
             console.log("[*] ----------------------------------- [*]\n\n\n\n\n");
-            child_process.execSync(cmd2, {
-                cwd: __dirname + "/complete_installation",
-                stdio: [process.stdin, process.stdout, process.stderr]
-            });
+            await decompress(file_dst_path, file_dst_folder);
             console.log("\n\n\n\n\n[*] -----------------------------------");
             console.log("[✔] The remote file was decompressed successfully.");
         }
@@ -57,9 +50,6 @@ const main = async function() {
             const intermediate_folder = fs.readdirSync(__dirname + "/complete_installation/stanford-parser-4.2.1")[0];
             const file_dst_path_copy_src = path.resolve(__dirname + "/complete_installation/stanford-parser-4.2.1/" + intermediate_folder + "/stanford-parser-4.2.1-models.jar");
             const file_dst_path_copy_dst = path.resolve(__dirname + "/../node_modules/core-nlp-wrapper/stanford-parser-4.2.1-models.jar");
-            if (fs.existsSync(file_dst_path_copy_dst)) {
-                break Step_3_copy;
-            }
             was_needed_some_step = true;
             console.log("[*] Copying file:\n  --from " + file_dst_path_copy_src + "\n  --to   " + file_dst_path_copy_dst);
             fs.copyFileSync(file_dst_path_copy_src, file_dst_path_copy_dst);
@@ -74,4 +64,4 @@ const main = async function() {
     }
 };
 
-main();
+module.exports = main();
